@@ -9,14 +9,14 @@ jobs:
   app-db:
     runs-on: ubuntu-latest
     steps:
-      name: Checkout source code
-      uses: actions/checkout@v3
+      - name: Checkout source code
+        uses: actions/checkout@v3
       
-      name: Run docker compose
-      run: docker compose up -d
+      - name: Run docker compose
+        run: docker compose up -d
 
-      name: Test db-service
-      run: docker exec practice-web-1 mysql -u root -p rootpassword -e "show databases;"
+      - name: Test db-service
+        run: docker exec practice-web-1 mysql -u root -p rootpassword -e "show databases;"
 
-      name: Test api-service
-      run: docker exec practice-app-1 curl http://lvm66027.sit.kmutt.ac.th:5000/api/users
+      - name: Test api-service
+        run: docker exec practice-app-1 curl http://lvm66027.sit.kmutt.ac.th:5000/api/users
