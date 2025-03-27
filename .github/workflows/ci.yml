@@ -19,4 +19,4 @@ jobs:
         run: docker exec db_server mysql -u root -prootpassword -e "show databases;"
 
       - name: Test app
-        run: docker exec practice-app-1 curl http://lvm66027.sit.kmutt.ac.th:5000/api/users
+        run: docker exec app-db-web-1 curl http://lvm66027.sit.kmutt.ac.th:5000/api/users
