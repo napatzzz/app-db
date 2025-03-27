@@ -12,11 +12,15 @@ jobs:
       - name: Checkout source code
         uses: actions/checkout@v3
       
-      - name: Run docker compose
-        run: docker compose up -d
+      - name: Set up Docker Compose
+        run:  |
+          docker compose up -d
+          echo "Waiting for containers to initialize..."
+          sleep 20
 
-      - name: Test db
-        run: docker exec db_server mysql -u root -prootpassword -e "show databases;"
+      - name: Run test inside web containers
+        run: docker compose exec -it web curl http://localhost:5000/api/users
 
-      - name: Test app
-        run: docker exec app-db-web-1 bash -c "curl http://lvm66027.sit.kmutt.ac.th:5000/api/users;"
+      - name: Shoutdown Docker Compose
+        if: always()
+        run: docker compose down
